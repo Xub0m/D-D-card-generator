@@ -747,6 +747,8 @@
                 <input type="text" id="alvo" placeholder="👥 Alvo do poder" oninput="gerarCard()">
                 <input type="text" id="ataque" placeholder="🎲 Teste de Ataque" oninput="gerarCard()">
                 <textarea id="efeito" placeholder="💫 Efeito místico..." rows="3" oninput="gerarCard()"></textarea>
+                <textarea id="sucesso" placeholder="💫 Sucesso..." rows="3" oninput="gerarCard()"></textarea>
+                <textarea id="fracasso" placeholder="💫 Fracasso..." rows="3" oninput="gerarCard()"></textarea>
 
                 <div class="preset-templates">
                     <h3>📚 Templates Prontos</h3>
@@ -840,8 +842,10 @@
             const alvo = document.getElementById("alvo").value.trim();
             const ataque = document.getElementById("ataque").value.trim();
             const efeito = document.getElementById("efeito").value.trim();
+            const sucesso = document.getElementById("sucesso").value.trim();
+            const fracasso = document.getElementById("fracasso").value.trim();
 
-            const hasContent = nome || subtitulo || tipo || acao || categoria || alcance || alvo || ataque || efeito;
+            const hasContent = nome || subtitulo || tipo || acao || categoria || alcance || alvo || ataque || efeito || sucesso || fracasso;
 
             if (!hasContent) {
                 document.getElementById("resultado").innerHTML = '';
@@ -911,6 +915,14 @@
                 cardHTML += `<div class="effect"><strong>Efeito:</strong> ${efeito}</div>`;
             }
 
+            if (sucesso) {
+                cardHTML += `<div class="effect"><strong>Sucesso:</strong> ${sucesso}</div>`;
+            }
+
+            if (fracasso) {
+                cardHTML += `<div class="effect"><strong>Fracasso:</strong> ${fracasso}</div>`;
+            }
+
             cardHTML += '</div>';
 
             document.getElementById("resultado").innerHTML = cardHTML;
@@ -977,7 +989,10 @@
                     alvo: "Uma criatura",
                     ataque: "+12 vs CA",
                     efeito: "2d10+6 de dano e o alvo fica atordoado até o fim do seu próximo turno",
+                    sucesso: "",
+                    fracasso: "",
                     color: "red"
+
                 },
                 ranged: {
                     nome: "Flecha Precisa",
@@ -990,6 +1005,8 @@
                     alvo: "Uma criatura",
                     ataque: "+14 vs CA",
                     efeito: "2d8+8 de dano e você ganha +2 de bônus em jogadas de ataque contra o alvo até o fim do seu próximo turno",
+                    sucesso: "",
+                    fracasso: "",
                     color: "yellow"
                 },
                 spell: {
@@ -1003,6 +1020,8 @@
                     alvo: "Todas as criaturas na explosão",
                     ataque: "+10 vs Reflexos",
                     efeito: "3d6+5 de dano de fogo. Acerto crítico: O alvo sofre 10 de dano de fogo contínuo (salvamento encerra)",
+                    sucesso: "",
+                    fracasso: "",
                     color: "purple"
                 },
                 heal: {
@@ -1016,6 +1035,8 @@
                     alvo: "Você ou um aliado",
                     ataque: "",
                     efeito: "O alvo pode gastar uma recuperação e recupera 2d6+6 pontos de vida adicionais",
+                    sucesso: "",
+                    fracasso: "",
                     color: "green"
                 },
                 clear: null
@@ -1032,6 +1053,8 @@
                 document.getElementById('alvo').value = '';
                 document.getElementById('ataque').value = '';
                 document.getElementById('efeito').value = '';
+                document.getElementById('sucesso').value = '';
+                document.getElementById('fracasso').value = '';
                 document.getElementById('resultado').innerHTML = '';
                 isCardEmpty = true;
                 isFirstInteraction = true;
@@ -1050,6 +1073,8 @@
                 document.getElementById('alvo').value = template.alvo;
                 document.getElementById('ataque').value = template.ataque;
                 document.getElementById('efeito').value = template.efeito;
+                document.getElementById('sucesso').value = template.sucesso;
+                document.getElementById('fracasso').value = template.fracasso;
 
                 setBackground(template.color);
                 gerarCard(true);
